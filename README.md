@@ -25,9 +25,9 @@ Everything is set up in the user interface, no YAML needed.
   - your own URL that answers with the IP address, as plain text or as JSON
     with an `ip` field;
   - or not at all.
-- An **Internet Status** card in the dashboard card picker: the three statuses
-  with a coloured icon, and Home Assistant's history graph of the ping times.
-  Tap a row for its details and history.
+- An **Internet Status** card in the dashboard card picker: a green or red
+  status bar for a quick answer, the three statuses with a coloured icon, and
+  Home Assistant's history graph of the ping times. See [The card](#the-card).
 
 All hosts, the DNS server, the test name, the service and the intervals can be
 changed later with **Configure** on the integration.
@@ -70,15 +70,92 @@ Or go to **Settings, Devices & services, Add integration** and search for
 | Own URL | | Only for "Own URL" |
 | Look up the public IP every | 15 min | |
 
-## Adding the card
+## The card
+
+The **Internet Status** card gives the quick answer to "is it the internet,
+or is it this website?", and the details behind it.
+
+- **Status bar** at the top:
+  - green **Internet OK**, with the current ping time;
+  - red **No internet**: none of the ping hosts answers;
+  - red **DNS not working**: the internet is reachable, but the DNS server
+    does not answer, so websites and apps cannot find their servers;
+  - grey **Status unknown**: the checks have no result yet, for example just
+    after Home Assistant started.
+
+  The public IP does not count: a service that does not answer does not mean
+  your internet is down.
+- **Details**: a row each for **Internet** (online or offline, ping time,
+  packet loss when there is any), **DNS** (OK or the problem, response time,
+  the server that was asked) and **Public IP**, with a green, red or grey icon.
+- **Graph**: Home Assistant's own history graph of the ping times, by default
+  of the last 24 hours. Hover or tap it for the values.
+
+Tap the status bar or a row to open its details and history.
+
+### Adding the card
 
 1. Open your dashboard, click the **pencil** (top right) to edit it.
 2. Click **Add card** and search for **Internet Status**.
-3. Optionally give it a title, or switch the graph off or change its hours.
+3. Change the options below if you like.
 4. Click **Save**.
 
+### Options
+
+| Option in the editor | YAML | Default | |
+|---|---|---|---|
+| Title (optional) | `title` | none | A title above the status bar |
+| Internet Status device | `device_id` | the first one | Leave it empty: there is one Internet Status set-up |
+| Show internet, DNS and public IP | `show_details` | on | The three rows under the status bar |
+| Show the ping graph | `show_graph` | on | The history graph of the ping times |
+| Hours in the graph | `hours_to_show` | 24 | 1 to 168 hours |
+
+With **Show internet, DNS and public IP** and **Show the ping graph** both
+off, the card is just the coloured status bar: small enough for any
+dashboard or wall tablet.
+
+The card fills the width of its column, or of its section when that is wider.
+
+```yaml
+type: custom:internet-status-card
+title: Internet          # optional
+show_details: true       # Internet, DNS and Public IP rows
+show_graph: true         # ping graph
+hours_to_show: 24        # hours in the graph
+```
+
+### Only when something is wrong
+
+Show the compact card at the top of a dashboard only while the internet or
+DNS is down, with Home Assistant's own visibility conditions. For example as
+the first section of a sections dashboard, spanning its full width:
+
+```yaml
+type: grid
+column_span: 4           # the full width of a dashboard with 4 columns
+cards:
+  - type: custom:internet-status-card
+    show_details: false
+    show_graph: false
+visibility:
+  - condition: or
+    conditions:
+      - condition: state
+        entity: binary_sensor.internet_online
+        state: "off"
+      - condition: state
+        entity: binary_sensor.internet_dns
+        state: "off"
+```
+
+In the editor this is the **Visibility** tab of the section (or of the card).
+The entity names above are the defaults; check yours under **Settings,
+Devices & services, Internet Status**.
+
+### The entities in other cards
+
 The entities work in any other card as well, for example a tile card for
-**Online** or a history graph of **DNS response time**.
+**Online**, or a history graph of **DNS response time**.
 
 ## Notes
 
