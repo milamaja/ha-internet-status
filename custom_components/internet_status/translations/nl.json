@@ -1,0 +1,98 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Internet Status",
+        "description": "Controleert of het internet bereikbaar is (ping), of je DNS-server antwoordt en wat je publieke IP-adres is. Laat de DNS-server leeg om de DNS-server te testen die je netwerk uitdeelt (nu: {detected}).",
+        "data": {
+          "ping_hosts": "Ping-adressen",
+          "ping_interval": "Ping elke",
+          "dns_server": "DNS-server",
+          "dns_name": "Op te zoeken naam",
+          "dns_interval": "DNS controleren elke",
+          "public_ip_service": "Dienst voor het publieke IP",
+          "public_ip_url": "Eigen URL",
+          "public_ip_interval": "Publiek IP opzoeken elke"
+        },
+        "data_description": {
+          "ping_hosts": "Een of meer IP-adressen of namen, gescheiden door komma's. Online zodra een ervan antwoordt.",
+          "dns_server": "Leeg: de DNS-server die je netwerk uitdeelt, wordt regelmatig opnieuw opgezocht. Of het IP-adres van een DNS-server.",
+          "dns_name": "De DNS-server moet voor deze naam een adres teruggeven.",
+          "public_ip_service": "De dienst die je publieke IPv4-adres doorgeeft. ipify en Mullvad zeggen geen logs te bewaren.",
+          "public_ip_url": "Alleen bij Eigen URL: een adres dat antwoordt met je IP-adres, als platte tekst of als JSON met een \"ip\"-veld."
+        }
+      }
+    },
+    "error": {
+      "invalid_hosts": "Vul minstens één adres in.",
+      "invalid_dns_server": "Vul het IP-adres van een DNS-server in, of laat het leeg.",
+      "invalid_dns_name": "Vul een naam in zoals home-assistant.io.",
+      "custom_url_required": "Vul een URL in die begint met http:// of https://.",
+      "cannot_get_ip": "Deze URL antwoordde niet met een IP-adres."
+    },
+    "abort": {
+      "single_instance_allowed": "Internet Status is al ingesteld. Wijzig de instellingen via Configureren."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Internet Status",
+        "description": "Laat de DNS-server leeg om de DNS-server te testen die je netwerk uitdeelt (nu: {detected}).",
+        "data": {
+          "ping_hosts": "Ping-adressen",
+          "ping_interval": "Ping elke",
+          "dns_server": "DNS-server",
+          "dns_name": "Op te zoeken naam",
+          "dns_interval": "DNS controleren elke",
+          "public_ip_service": "Dienst voor het publieke IP",
+          "public_ip_url": "Eigen URL",
+          "public_ip_interval": "Publiek IP opzoeken elke"
+        },
+        "data_description": {
+          "ping_hosts": "Een of meer IP-adressen of namen, gescheiden door komma's. Online zodra een ervan antwoordt.",
+          "dns_server": "Leeg: de DNS-server die je netwerk uitdeelt, wordt regelmatig opnieuw opgezocht. Of het IP-adres van een DNS-server.",
+          "dns_name": "De DNS-server moet voor deze naam een adres teruggeven.",
+          "public_ip_service": "De dienst die je publieke IPv4-adres doorgeeft. ipify en Mullvad zeggen geen logs te bewaren.",
+          "public_ip_url": "Alleen bij Eigen URL: een adres dat antwoordt met je IP-adres, als platte tekst of als JSON met een \"ip\"-veld."
+        }
+      }
+    },
+    "error": {
+      "invalid_hosts": "Vul minstens één adres in.",
+      "invalid_dns_server": "Vul het IP-adres van een DNS-server in, of laat het leeg.",
+      "invalid_dns_name": "Vul een naam in zoals home-assistant.io.",
+      "custom_url_required": "Vul een URL in die begint met http:// of https://.",
+      "cannot_get_ip": "Deze URL antwoordde niet met een IP-adres."
+    }
+  },
+  "selector": {
+    "public_ip_service": {
+      "options": {
+        "ipify": "ipify (api.ipify.org)",
+        "mullvad": "Mullvad (am.i.mullvad.net)",
+        "custom": "Eigen URL",
+        "none": "Publiek IP niet opzoeken"
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "online": { "name": "Online", "state_attributes": { "hosts": { "name": "Adressen" } } },
+      "dns": {
+        "name": "DNS",
+        "state_attributes": {
+          "server": { "name": "Server" },
+          "test_name": { "name": "Opgezochte naam" },
+          "error": { "name": "Fout" }
+        }
+      }
+    },
+    "sensor": {
+      "ping": { "name": "Ping" },
+      "packet_loss": { "name": "Pakketverlies" },
+      "dns_response_time": { "name": "DNS-responstijd" },
+      "public_ip": { "name": "Publiek IP", "state_attributes": { "service": { "name": "Dienst" } } }
+    }
+  }
+}

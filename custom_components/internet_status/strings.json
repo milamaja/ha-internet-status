@@ -1,0 +1,98 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Internet Status",
+        "description": "Checks whether the internet is reachable (ping), whether your DNS server answers, and what your public IP address is. Leave the DNS server empty to test the DNS server your network hands out (now: {detected}).",
+        "data": {
+          "ping_hosts": "Ping hosts",
+          "ping_interval": "Ping every",
+          "dns_server": "DNS server",
+          "dns_name": "Name to look up",
+          "dns_interval": "Check DNS every",
+          "public_ip_service": "Public IP service",
+          "public_ip_url": "Own URL",
+          "public_ip_interval": "Look up the public IP every"
+        },
+        "data_description": {
+          "ping_hosts": "One or more IP addresses or names, separated by commas. Online when any of them answers.",
+          "dns_server": "Empty: the DNS server your network hands out, looked up again regularly. Or the IP address of a DNS server.",
+          "dns_name": "The DNS server has to answer with an address for this name.",
+          "public_ip_service": "The service that tells your public IPv4 address. ipify and Mullvad state that they keep no logs.",
+          "public_ip_url": "Only with Own URL: an address that answers with your IP address, as plain text or as JSON with an \"ip\" field."
+        }
+      }
+    },
+    "error": {
+      "invalid_hosts": "Enter at least one host.",
+      "invalid_dns_server": "Enter the IP address of a DNS server, or leave it empty.",
+      "invalid_dns_name": "Enter a name such as home-assistant.io.",
+      "custom_url_required": "Enter a URL starting with http:// or https://.",
+      "cannot_get_ip": "This URL did not answer with an IP address."
+    },
+    "abort": {
+      "single_instance_allowed": "Internet Status is already set up. Change its settings with Configure."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Internet Status",
+        "description": "Leave the DNS server empty to test the DNS server your network hands out (now: {detected}).",
+        "data": {
+          "ping_hosts": "Ping hosts",
+          "ping_interval": "Ping every",
+          "dns_server": "DNS server",
+          "dns_name": "Name to look up",
+          "dns_interval": "Check DNS every",
+          "public_ip_service": "Public IP service",
+          "public_ip_url": "Own URL",
+          "public_ip_interval": "Look up the public IP every"
+        },
+        "data_description": {
+          "ping_hosts": "One or more IP addresses or names, separated by commas. Online when any of them answers.",
+          "dns_server": "Empty: the DNS server your network hands out, looked up again regularly. Or the IP address of a DNS server.",
+          "dns_name": "The DNS server has to answer with an address for this name.",
+          "public_ip_service": "The service that tells your public IPv4 address. ipify and Mullvad state that they keep no logs.",
+          "public_ip_url": "Only with Own URL: an address that answers with your IP address, as plain text or as JSON with an \"ip\" field."
+        }
+      }
+    },
+    "error": {
+      "invalid_hosts": "Enter at least one host.",
+      "invalid_dns_server": "Enter the IP address of a DNS server, or leave it empty.",
+      "invalid_dns_name": "Enter a name such as home-assistant.io.",
+      "custom_url_required": "Enter a URL starting with http:// or https://.",
+      "cannot_get_ip": "This URL did not answer with an IP address."
+    }
+  },
+  "selector": {
+    "public_ip_service": {
+      "options": {
+        "ipify": "ipify (api.ipify.org)",
+        "mullvad": "Mullvad (am.i.mullvad.net)",
+        "custom": "Own URL",
+        "none": "Don't look up the public IP"
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "online": { "name": "Online", "state_attributes": { "hosts": { "name": "Hosts" } } },
+      "dns": {
+        "name": "DNS",
+        "state_attributes": {
+          "server": { "name": "Server" },
+          "test_name": { "name": "Name looked up" },
+          "error": { "name": "Error" }
+        }
+      }
+    },
+    "sensor": {
+      "ping": { "name": "Ping" },
+      "packet_loss": { "name": "Packet loss" },
+      "dns_response_time": { "name": "DNS response time" },
+      "public_ip": { "name": "Public IP", "state_attributes": { "service": { "name": "Service" } } }
+    }
+  }
+}

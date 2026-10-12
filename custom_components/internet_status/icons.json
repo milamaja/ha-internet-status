@@ -1,0 +1,14 @@
+{
+  "entity": {
+    "binary_sensor": {
+      "online": { "default": "mdi:web", "state": { "off": "mdi:web-off" } },
+      "dns": { "default": "mdi:dns", "state": { "off": "mdi:dns-outline" } }
+    },
+    "sensor": {
+      "ping": { "default": "mdi:timer-outline" },
+      "packet_loss": { "default": "mdi:lan-disconnect" },
+      "dns_response_time": { "default": "mdi:timer-outline" },
+      "public_ip": { "default": "mdi:ip-network" }
+    }
+  }
+}
