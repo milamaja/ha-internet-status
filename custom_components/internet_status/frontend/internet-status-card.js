@@ -3,7 +3,7 @@
  * Assistant's own history graph of the ping times. Served and registered by
  * the Internet Status integration; finds the integration's entities itself.
  */
-const VERSION = "1.0.0";
+const VERSION = "1.1.0";
 const DOMAIN = "internet_status";
 const CARD_TYPE = "internet-status-card";
 const EDITOR_TYPE = "internet-status-card-editor";
@@ -33,6 +33,7 @@ const TEXT = {
     show_details: "Show internet, DNS and public IP",
     show_graph: "Show the ping graph",
     hours_to_show: "Hours in the graph",
+    tap_action: "Tap action (empty: open the details)",
   },
   nl: {
     name: "Internet Status",
@@ -58,6 +59,7 @@ const TEXT = {
     show_details: "Internet, DNS en publiek IP tonen",
     show_graph: "Pinggrafiek tonen",
     hours_to_show: "Uren in de grafiek",
+    tap_action: "Tikactie (leeg: details openen)",
   },
 };
 
@@ -168,6 +170,13 @@ class InternetStatusCard extends HTMLElement {
     root.querySelectorAll(".row, .status").forEach((row) => {
       const open = () => {
         const entityId = row.dataset.entityId;
+        const tapAction = this._config.tap_action;
+        if (tapAction) {
+          // Home Assistant's own action handling: navigate, url, perform-action, more-info, none, ...
+          const config = { entity: entityId || undefined, tap_action: tapAction };
+          this.dispatchEvent(new CustomEvent("hass-action", { detail: { config, action: "tap" }, bubbles: true, composed: true }));
+          return;
+        }
         if (!entityId) return;
         this.dispatchEvent(new CustomEvent("hass-more-info", { detail: { entityId }, bubbles: true, composed: true }));
       };
@@ -303,7 +312,7 @@ class InternetStatusCardEditor extends HTMLElement {
       this._form.computeLabel = (schema) => text(this._hass, schema.name);
       this._form.addEventListener("value-changed", (ev) => {
         const config = { ...ev.detail.value };
-        for (const key of ["title", "device_id"]) if (!config[key]) delete config[key];
+        for (const key of ["title", "device_id", "tap_action"]) if (!config[key]) delete config[key];
         this._config = config;
         this.dispatchEvent(new CustomEvent("config-changed", { detail: { config }, bubbles: true, composed: true }));
       });
@@ -316,6 +325,7 @@ class InternetStatusCardEditor extends HTMLElement {
       { name: "show_details", selector: { boolean: {} } },
       { name: "show_graph", selector: { boolean: {} } },
       { name: "hours_to_show", selector: { number: { min: 1, max: 168, mode: "box", unit_of_measurement: "h" } } },
+      { name: "tap_action", selector: { ui_action: {} } },
     ];
     this._form.data = { show_details: true, show_graph: true, hours_to_show: 24, ...this._config };
   }

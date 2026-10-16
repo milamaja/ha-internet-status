@@ -91,7 +91,8 @@ or is it this website?", and the details behind it.
 - **Graph**: Home Assistant's own history graph of the ping times, by default
   of the last 24 hours. Hover or tap it for the values.
 
-Tap the status bar or a row to open its details and history.
+Tap the status bar or a row to open its details and history, or set your own
+`tap_action` (see the options).
 
 ### Adding the card
 
@@ -109,6 +110,7 @@ Tap the status bar or a row to open its details and history.
 | Show internet, DNS and public IP | `show_details` | on | The three rows under the status bar |
 | Show the ping graph | `show_graph` | on | The history graph of the ping times |
 | Hours in the graph | `hours_to_show` | 24 | 1 to 168 hours |
+| Tap action | `tap_action` | none | What a tap on the status bar or a row does, as in other cards (navigate, more-info, perform-action, ...). Empty: open the details of what you tapped |
 
 With **Show internet, DNS and public IP** and **Show the ping graph** both
 off, the card is just the coloured status bar: small enough for any
