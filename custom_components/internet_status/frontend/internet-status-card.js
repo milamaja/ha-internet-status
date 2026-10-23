@@ -3,7 +3,7 @@
  * Assistant's own history graph of the ping times. Served and registered by
  * the Internet Status integration; finds the integration's entities itself.
  */
-const VERSION = "1.1.0";
+const VERSION = "1.1.7";
 const DOMAIN = "internet_status";
 const CARD_TYPE = "internet-status-card";
 const EDITOR_TYPE = "internet-status-card-editor";
