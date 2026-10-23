@@ -6,13 +6,6 @@ graph of the ping times of the last day.
 
 Everything is set up in the user interface, no YAML needed.
 
-<p>
-  <img src="https://raw.githubusercontent.com/milamaja/ha-internet-status/main/images/card.png" width="420" alt="Internet Status card: Internet OK, DNS, public IP and the ping graph of the last day">
-</p>
-<p>
-  <img src="https://raw.githubusercontent.com/milamaja/ha-internet-status/main/images/card-down.png" width="420" alt="The compact card when the internet is down: No internet">
-</p>
-
 ## What you get
 
 - **Online**: on when one of the ping hosts answers (default 1.1.1.1 and
@@ -82,6 +75,8 @@ Or go to **Settings, Devices & services, Add integration** and search for
 The **Internet Status** card gives the quick answer to "is it the internet,
 or is it this website?", and the details behind it.
 
+<p><img src="https://raw.githubusercontent.com/milamaja/ha-internet-status/main/images/card.png" width="420" alt="Internet Status card: Internet OK, DNS, public IP and the ping graph of the last day"></p>
+
 - **Status bar** at the top:
   - green **Internet OK**, with the current ping time;
   - red **No internet**: none of the ping hosts answers;
@@ -134,6 +129,8 @@ hours_to_show: 24        # hours in the graph
 ```
 
 ### Only when something is wrong
+
+<p><img src="https://raw.githubusercontent.com/milamaja/ha-internet-status/main/images/card-down.png" width="420" alt="The compact card when the internet is down: No internet"></p>
 
 Show the compact card at the top of a dashboard only while the internet or
 DNS is down, with Home Assistant's own visibility conditions. For example as
