@@ -34,18 +34,15 @@ changed later with **Configure** on the integration.
 
 ## Installation
 
-### HACS (custom repository)
+### Marketplace
 
-[![Open your Home Assistant instance and open this repository inside HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=milamaja&repository=ha-internet-status&category=integration)
+[![Open your Home Assistant instance and open this repository in the Marketplace.](https://my.home-assistant.io/badges/marketplace_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=milamaja&repository=ha-internet-status&category=integration)
 
-The button opens this repository in HACS (it uses [My Home Assistant](https://www.home-assistant.io/integrations/my/), which is on by default). Or add it by hand:
+The button opens this repository in the Marketplace of your Home Assistant (it uses [My Home Assistant](https://www.home-assistant.io/integrations/my/), which is on by default). Or add it by hand:
 
-1. In HACS, open the menu (three dots, top right) and choose **Custom repositories**.
-2. Add `https://github.com/milamaja/ha-internet-status` with category **Integration**.
-3. Install **Internet Status** and restart Home Assistant
-   (**Settings, System**, power icon top right, **Restart Home Assistant**).
-
-Don't have HACS yet? See [the HACS installation guide](https://hacs.xyz/docs/use/).
+1. Go to **Settings, Marketplace** and select **Add from link** (top right).
+2. Enter `milamaja/ha-internet-status` and select **Add**. If you have not connected GitHub to the Marketplace yet, it asks you to do that first.
+3. Open **Internet Status** and install it. When Home Assistant needs a restart, the Marketplace tells you.
 
 ### Manual
 
